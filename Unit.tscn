@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://cx0iw8a8el050"]
+
+[ext_resource type="Script" path="res://Unit.gd" id="1_dcytb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nabc8"]
+size = Vector2(40, 40)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7sbeu"]
+radius = 192.666
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_pv61j"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
+
+[node name="Unit" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_dcytb")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_nabc8")
+
+[node name="SearchBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="SearchArea" type="CollisionShape2D" parent="SearchBox"]
+shape = SubResource("CircleShape2D_7sbeu")
+
+[node name="WeaponCooldown" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_pv61j")
+
+[connection signal="body_entered" from="SearchBox" to="." method="_on_search_box_body_entered"]
+[connection signal="timeout" from="WeaponCooldown" to="." method="_on_weapon_cooldown_timeout"]

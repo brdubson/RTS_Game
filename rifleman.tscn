@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0hk0yvbvitnw"]
+
+[ext_resource type="Script" path="res://rifleman.gd" id="1_0k7ga"]
+[ext_resource type="PackedScene" uid="uid://cx0iw8a8el050" path="res://Unit.tscn" id="1_r48qr"]
+[ext_resource type="PackedScene" uid="uid://do5rh1u5jyuii" path="res://projectile.tscn" id="2_61jnb"]
+
+[node name="Rifleman" instance=ExtResource("1_r48qr")]
+script = ExtResource("1_0k7ga")
+Projectile = ExtResource("2_61jnb")
+
+[node name="ColorRect" parent="." index="0"]
+color = Color(0, 1, 0, 1)
+
+[node name="SearchBox" parent="." index="2"]
+collision_mask = 28

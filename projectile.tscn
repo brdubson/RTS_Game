@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://do5rh1u5jyuii"]
+
+[ext_resource type="Script" path="res://projectile.gd" id="1_25v8d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xkmsr"]
+size = Vector2(8, 8)
+
+[node name="Projectile" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_25v8d")
+
+[node name="HitDetection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 30
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitDetection"]
+shape = SubResource("RectangleShape2D_xkmsr")
+
+[node name="ColorRect" type="ColorRect" parent="HitDetection"]
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="area_entered" from="HitDetection" to="." method="_on_hit_detection_area_entered"]
+[connection signal="body_entered" from="HitDetection" to="." method="_on_hit_detection_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
